@@ -7,11 +7,11 @@
   "unpkg": "dist/ntc-ts.umd.js",
   "scripts": {
     "build": "microbundle",
-    "coverage": "jest --coverage",
+    "coverage": "jest --config=jest.json --coverage",
     "dev": "microbundle watch",
     "lint": "ts-standard",
     "test": "jest --config=jest.json",
-    "watch": "jest --watch"
+    "watch": "jest --config=jest.json --watch"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
