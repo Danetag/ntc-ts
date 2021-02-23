@@ -15,17 +15,17 @@ See the example below:
 
 ```ts
 import { getColorName, initColors } from "ntc-ts";
-import { MINIMAL_COLORS } from "ntc-ts/colors/minimal";
+import { ORIGINAL_COLORS } from "ntc-ts/colors/original";
 
 // First, init the available colors.
 // By default, only the Black color is available
-initColors(MINIMAL_COLORS);
+initColors(ORIGINAL_COLORS);
 
 /*
 // Returns a formatted color object FORMATTED_COLOR
 type FORMATTED_COLOR = {
     exactMatch: boolean;
-    name: string;a
+    name: string;
     rgb: string | null;
 };
 */
