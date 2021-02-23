@@ -30,11 +30,17 @@ type FORMATTED_COLOR = {
 };
 */
 
-const color01 = getColorName("#000"); // returns { exactMatch: true, name: 'Black', rgb: '#000000' }
-const color01 = getColorName("#9399A7"); // returns { exactMatch: false, name: 'Manatee', rgb: '#9399A7' }
+const color01 = getColorName("#000");
+// returns { exactMatch: true, name: 'Black', rgb: '#000000' }
 
-const color03 = getColorName("this is not a color"); // returns { exactMatch: false, name: 'not-a-color', rgb: null }
-const color04 = getColorName(undefined); // returns { exactMatch: false, name: 'not-a-color', rgb: null }
+const color01 = getColorName("#9399A7");
+// returns { exactMatch: false, name: 'Manatee', rgb: '#9399A7' }
+
+const color03 = getColorName("this is not a color");
+// returns { exactMatch: false, name: 'not-a-color', rgb: null }
+
+const color04 = getColorName(undefined);
+// returns { exactMatch: false, name: 'not-a-color', rgb: null }
 ```
 
 ### Available color sets
