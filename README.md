@@ -1,9 +1,9 @@
 # NTC, but TS
 
-Extract the work of [ntc](https://chir.ag/projects/ntc/) - "Name That Color" - as a typescript library, with a few more features:
+Extracts the work of [ntc](https://chir.ag/projects/ntc/) - "Name That Color" - as a typescript library, with a few more features:
 
 - caches colors already found, instead of looping through the array of available colors.
-- extract color sets in different files, so developers can provide their own colors or use a set provided by the library.
+- extract color sets in different files for tree shaking, so developers can provide their own colors or use a set provided by the library.
 
 ## Live Demo of ntc
 
