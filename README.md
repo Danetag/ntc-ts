@@ -14,8 +14,7 @@ Try [Name that Color](https://chir.ag/projects/name-that-color/)!
 See the example below:
 
 ```ts
-import { getColorName, initColors } from "ntc-ts";
-import { ORIGINAL_COLORS } from "ntc-ts/colors/original";
+import { getColorName, initColors, ORIGINAL_COLORS } from "ntc-ts";
 
 // First, init the available colors.
 // By default, only the Black color is available
@@ -47,8 +46,8 @@ const color04 = getColorName(undefined);
 
 There are 2 available color sets:
 
-- `ORIGINAL_COLORS` located in `ntc-ts/colors/minimal`
-- `MINIMAL_COLORS` located in `ntc-ts/colors/original`
+- `ORIGINAL_COLORS`, containing the original set provided by ntc.
+- `MINIMAL_COLORS`, containing the original set trimmed down to a few main colors.
 
 ## Original credits
 
