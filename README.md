@@ -2,8 +2,8 @@
 
 Extract the work of [NTC](https://chir.ag/projects/ntc/) - "Name That Color" - as a typescript library, with a few more features:
 
-- caches colors already found, instead of looping through the array of available color
-- exposes function to update the available colors
+- caches colors already found, instead of looping through the array of available color.
+- extract color sets in different files, so developers can provide their own colors or use different set provided by the library.
 
 ## Live Demo of ntc
 
@@ -14,7 +14,12 @@ Try [Name that Color](https://chir.ag/projects/name-that-color/)!
 See the example below:
 
 ```ts
-import { getColorName } from "ntc-ts";
+import { getColorName, initColors } from "ntc-ts";
+import { MINIMAL_COLORS } from "ntc-ts/colors/minimal";
+
+// First, init the available colors.
+// By default, only the Black color is available
+initColors(MINIMAL_COLORS);
 
 /*
 // Returns a formatted color object FORMATTED_COLOR
@@ -31,6 +36,13 @@ const color01 = getColorName("#9399A7"); // returns { exactMatch: false, name: '
 const color03 = getColorName("this is not a color"); // returns { exactMatch: false, name: 'not-a-color', rgb: null }
 const color04 = getColorName(undefined); // returns { exactMatch: false, name: 'not-a-color', rgb: null }
 ```
+
+### Available color sets
+
+There's 2 sets available:
+
+- `ORIGINAL_COLORS` located in `ntc-ts/colors/minimal`
+- `MINIMAL_COLORS` located in `ntc-ts/colors/original`
 
 ## Credits
 

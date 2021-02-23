@@ -1,7 +1,7 @@
-import { CACHED_COLOR, FORMATTED_COLOR } from './types'
-import { COLORS } from './constants'
+import { CACHED_COLOR, COLOR, FORMATTED_COLOR } from './types'
 
-export const cachedColors: CACHED_COLOR = {}
+export let cachedColors: CACHED_COLOR = {}
+export let colors: COLOR[] = [['000000', 'Black']]
 
 export const NOT_A_COLOR = 'not-a-color'
 
@@ -50,6 +50,15 @@ function formatColor (rgb: string | null, colorName: string, exactMatch = false)
   }
 }
 
+export function initColors (_colors: COLOR[]): void {
+  colors = [..._colors];
+  flushCachedColors();
+}
+
+export function flushCachedColors (): void {
+  cachedColors = {...{}};
+}
+
 export function getColorName (color?: string): FORMATTED_COLOR {
   if (typeof color === 'undefined' || color === null) {
     return formatColor(null, NOT_A_COLOR, false)
@@ -94,8 +103,8 @@ export function getColorName (color?: string): FORMATTED_COLOR {
   let df = -1
 
   // Find in names
-  for (let i = 0; i < COLORS.length; i++) {
-    let currentColor = COLORS[i]
+  for (let i = 0; i < colors.length; i++) {
+    let currentColor = colors[i]
     const currentHexColor = `#${currentColor[0]}`
     const currentNameColor = String(currentColor[1])
 
@@ -123,10 +132,9 @@ export function getColorName (color?: string): FORMATTED_COLOR {
     const cS: number = parseInt(String(currentColor[6]), 10)
     const cL: number = parseInt(String(currentColor[7]), 10)
 
-    /* eslint-disable */
-        ndf1 = Math.pow(r - cR, 2) + Math.pow(g - cG, 2) + Math.pow(b - cB, 2);
-        ndf2 = Math.pow(h - cH, 2) + Math.pow(s - cS, 2) + Math.pow(l - cL, 2);
-        /* eslint-enable */
+    ndf1 = Math.pow(r - cR, 2) + Math.pow(g - cG, 2) + Math.pow(b - cB, 2)
+    ndf2 = Math.pow(h - cH, 2) + Math.pow(s - cS, 2) + Math.pow(l - cL, 2)
+
     ndf = ndf1 + ndf2 * 2
 
     if (df < 0 || df > ndf) {
@@ -135,15 +143,17 @@ export function getColorName (color?: string): FORMATTED_COLOR {
     }
   }
 
+  // Not found
   if (cl < 0) {
     return formatColor(color, color, false)
   }
 
-  // add to cached color
-  const currentColor = COLORS[cl]
+  const currentColor = colors[cl]
   const currentHexColor = `#${currentColor[0]}`
   const currentNameColor = String(currentColor[1])
 
+  // add to cached color
   cachedColors[color] = formatColor(currentHexColor, currentNameColor, false)
+
   return cachedColors[color]
 }

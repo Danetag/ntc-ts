@@ -1,6 +1,6 @@
-import { COLOR } from './types'
+import { COLOR } from '../types'
 
-export const COLORS: COLOR[] = [
+export const ORIGINAL_COLORS: COLOR[] = [
   ['000000', 'Black'],
   ['000080', 'Navy Blue'],
   ['0000C8', 'Dark Blue'],
