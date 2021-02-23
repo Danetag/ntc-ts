@@ -23,6 +23,10 @@
     "typescript": "^4.1.5"
   },
   "ts-standard": {
+    "ignore": [
+      "dist",
+      "example"
+    ],
     "env": {
       "jest": true
     }

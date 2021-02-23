@@ -9,5 +9,5 @@
       "target": "es5",
     },
     "include": ["src/**/*", "__tests__/**/*"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "dist", "example"]
 }

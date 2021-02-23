@@ -51,12 +51,12 @@ function formatColor (rgb: string | null, colorName: string, exactMatch = false)
 }
 
 export function initColors (_colors: COLOR[]): void {
-  colors = [..._colors];
-  flushCachedColors();
+  colors = [..._colors]
+  flushCachedColors()
 }
 
 export function flushCachedColors (): void {
-  cachedColors = {...{}};
+  cachedColors = { ...{} }
 }
 
 export function getColorName (color?: string): FORMATTED_COLOR {
