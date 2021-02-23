@@ -1,0 +1,20 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup --config",
+    "serve": "http-server ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "http-server": "^0.12.3",
+    "ntc-ts": "^0.0.1",
+    "rollup": "^2.39.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
