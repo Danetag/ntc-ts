@@ -1,0 +1,30 @@
+{
+  "name": "ntc-ts",
+  "source": "src/index.ts",
+  "main": "dist/ntc-ts.js",
+  "exports": "./dist/ntc-ts.modern.js",
+  "module": "dist/ntc-ts.module.js",
+  "unpkg": "dist/ntc-ts.umd.js",
+  "scripts": {
+    "build": "microbundle",
+    "coverage": "jest --coverage",
+    "dev": "microbundle watch",
+    "lint": "ts-standard",
+    "test": "jest --config=jest.json",
+    "watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^26.6.3",
+    "microbundle": "^0.13.0",
+    "ts-jest": "^26.5.1",
+    "ts-standard": "^10.0.0",
+    "typescript": "^4.1.5"
+  },
+  "ts-standard": {
+    "env": {
+      "jest": true
+    }
+  }
+}
