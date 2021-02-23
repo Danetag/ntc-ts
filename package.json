@@ -26,5 +26,6 @@
     "env": {
       "jest": true
     }
-  }
+  },
+  "version": "0.0.1"
 }
