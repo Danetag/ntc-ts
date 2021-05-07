@@ -1,18 +1,22 @@
 {
   "name": "ntc-ts",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "\"Name That Color\" as a typescript library!",
   "author": "Arnaud Tanielian <arno.tanielian@gmail.com> (https://cargocollective.com/danetag)",
-  "keywords": ["ntc", "color", "name that color"],
-  "license" : "CC-BY-4.0 License",
+  "keywords": [
+    "ntc",
+    "color",
+    "name that color"
+  ],
+  "license": "CC-BY-4.0 License",
   "homepage": "https://github.com/Danetag/ntc-ts#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/Danetag/ntc-ts"
   },
   "bugs": {
-    "url" : "https://github.com/Danetag/ntc-ts/issues",
-    "email" : "arno.tanielian@gmail.com"
+    "url": "https://github.com/Danetag/ntc-ts/issues",
+    "email": "arno.tanielian@gmail.com"
   },
   "source": "src/index.ts",
   "main": "dist/ntc-ts.js",
