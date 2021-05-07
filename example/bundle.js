@@ -6,6 +6,6 @@
 	l(e);
 	const color = E('#F89EAB');
 
-	console.log('hello world', color);
+	console.log('color for #F89EAB', color);
 
 }());
