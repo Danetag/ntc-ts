@@ -9,3 +9,4 @@
 	console.log('color for #F89EAB', color);
 
 }());
+//# sourceMappingURL=bundle.js.map
