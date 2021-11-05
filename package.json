@@ -43,6 +43,7 @@
     "typescript": "^4.1.5"
   },
   "resolutions": {
+    "ansi-regex": ">=5.0.1",
     "css-what": ">=5.0.1",
     "glob-parent": ">=5.1.2",
     "hosted-git-info": ">=2.8.9",
