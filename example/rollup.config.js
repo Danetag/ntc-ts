@@ -1,5 +1,5 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { visualizer } from 'rollup-plugin-visualizer';
+// import { visualizer } from 'rollup-plugin-visualizer';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 
 export default {
@@ -12,9 +12,9 @@ export default {
   plugins: [
     nodeResolve(),
     sourcemaps(),
-    visualizer({
-      open: true,
-      sourcemap: true,
-    })
+    // visualizer({
+    //   open: true,
+    //   sourcemap: true,
+    // })
   ]
 };
