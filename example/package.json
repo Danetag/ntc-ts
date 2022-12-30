@@ -2,7 +2,7 @@
   "name": "example",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "rollup --config",
     "serve": "http-server ./",
@@ -13,7 +13,7 @@
     "ecstatic": "^4.1.4",
     "http-server": "^14.1.0",
     "rollup": "^2.74.1",
-    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-ts": "^3.0.2",
     "rollup-plugin-visualizer": "^5.6.0",
     "yarn-upgrade-all": "^0.7.1"
   },
