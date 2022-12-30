@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "declaration": true,
-      "lib": ["es2018", "esnext.asynciterable", "dom"],
+      "lib": ["ESNext", "dom"],
       "outDir": "dist",
       "strict": true,
       "sourceMap": true,
