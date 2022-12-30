@@ -6,8 +6,10 @@
       "strict": true,
       "sourceMap": true,
       "sourceRoot": "/",
-      "target": "es5",
+      "module": "ESNext",
+      "target": "ESNext",
+      "skipLibCheck": true,
     },
-    "include": ["src/**/*", "__tests__/**/*"],
-    "exclude": ["node_modules", "dist", "example"]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist", "example", "__tests__"]
 }
