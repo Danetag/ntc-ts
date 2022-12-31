@@ -18,6 +18,7 @@
     "url": "https://github.com/Danetag/ntc-ts/issues",
     "email": "arno.tanielian@gmail.com"
   },
+  "type": "module",
   "source": "src/index.ts",
   "main": "dist/ntc-ts.js",
   "exports": "./dist/ntc-ts.modern.js",
