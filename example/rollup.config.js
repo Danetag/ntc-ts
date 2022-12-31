@@ -1,9 +1,9 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 // import { visualizer } from 'rollup-plugin-visualizer';
-import sourcemaps from 'rollup-plugin-sourcemaps';
+import ts from "rollup-plugin-ts";
 
 export default {
-  input: 'index.js',
+  input: './src/index.ts',
   output: {
     file: 'bundle.js',
     format: 'iife',
@@ -11,7 +11,7 @@ export default {
   },
   plugins: [
     nodeResolve(),
-    sourcemaps(),
+    ts(),
     // visualizer({
     //   open: true,
     //   sourcemap: true,
