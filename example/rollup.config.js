@@ -3,7 +3,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import ts from "rollup-plugin-ts";
 
 export default {
-  input: 'index.ts',
+  input: './src/index.ts',
   output: {
     file: 'bundle.js',
     format: 'iife',
