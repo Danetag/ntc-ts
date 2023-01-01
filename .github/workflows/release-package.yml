@@ -9,10 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set Node.js 16.x
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - run: npm ci
+          node-version: 16.x
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+      
+      - name: Install node_modules
+      - run: rm -rf node_modules && yarn install --frozen-lockfile
+      
+      - name: Run test
       - run: npm test
 
   publish-gpr:
@@ -23,11 +34,14 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set Node.js 16.x
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 16.x
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
+          
+      - run: rm -rf node_modules && yarn install --frozen-lockfile
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
