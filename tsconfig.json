@@ -11,5 +11,6 @@
       "skipLibCheck": true,
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist", "example", "__tests__"]
+    "exclude": ["node_modules", "dist", "example", "__tests__"],
+    "esModuleInterop": true
 }
