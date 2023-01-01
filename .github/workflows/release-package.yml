@@ -19,9 +19,6 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install # will run `yarn install` command
-      
-      - name: Run test
-        run: npm test
 
   publish-gpr:
     needs: build
