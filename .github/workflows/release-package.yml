@@ -1,27 +1,11 @@
-name: Node.js Package
+name: Publish package to GitHub Packages
 
 on:
   release:
     types: [created]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set Node.js 16.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-
-      - name: Run install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install # will run `yarn install` command
-
   publish-gpr:
-    needs: build
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -33,14 +17,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          registry-url: https://npm.pkg.github.com/
-
-      - name: Run install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install # will run `yarn install` command
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@danetag'
       
+      - name: Run yarn
+        run: yarn
+
       - name: Publish package
-        run: npm publish
+        run: yarn publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
