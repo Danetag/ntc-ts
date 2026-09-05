@@ -1,6 +1,6 @@
 {
   "name": "ntc-ts",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "\"Name That Color\" as a typescript library!",
   "author": "Arnaud Tanielian <arno.tanielian@gmail.com> (https://cargocollective.com/danetag)",
   "keywords": [
@@ -12,44 +12,54 @@
   "homepage": "https://github.com/Danetag/ntc-ts#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Danetag/ntc-ts"
+    "url": "git+https://github.com/Danetag/ntc-ts.git"
   },
   "bugs": {
     "url": "https://github.com/Danetag/ntc-ts/issues",
     "email": "arno.tanielian@gmail.com"
   },
   "type": "module",
-  "source": "src/index.ts",
-  "main": "dist/ntc-ts.js",
-  "exports": "./dist/ntc-ts.modern.js",
-  "types": "dist/ntc-ts.d.ts",
-  "module": "dist/ntc-ts.module.js",
-  "unpkg": "dist/ntc-ts.umd.js",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "main": "./dist/ntc-ts.cjs",
+  "module": "./dist/ntc-ts.module.js",
+  "types": "./dist/ntc-ts.d.ts",
+  "unpkg": "./dist/ntc-ts.umd.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/ntc-ts.d.ts",
+        "default": "./dist/ntc-ts.module.js"
+      },
+      "require": {
+        "types": "./dist/ntc-ts.d.cts",
+        "default": "./dist/ntc-ts.cjs"
+      },
+      "default": "./dist/ntc-ts.module.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "build": "microbundle",
-    "coverage": "jest --config=jest.json --coverage",
-    "dev": "microbundle watch",
-    "lint": "ts-standard",
-    "test": "jest --config=jest.json",
-    "watch": "jest --config=jest.json --watch"
+    "build": "tsup && node scripts/postbuild.mjs",
+    "coverage": "vitest run --coverage",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "watch": "vitest"
   },
   "devDependencies": {
-    "@types/jest": "^27.5.1",
-    "babel-preset-env": "^1.7.0",
-    "jest": "^28.1.0",
-    "microbundle": "^0.15.1",
-    "ts-jest": "^28.0.2",
-    "ts-standard": "^11.0.0",
-    "typescript": "^4.6.4",
-    "yarn-upgrade-all": "^0.7.1"
-  },
-  "ts-standard": {
-    "ignore": [
-      "dist",
-      "example"
-    ],
-    "env": {
-      "jest": true
-    }
+    "@eslint/js": "^10.0.1",
+    "@vitest/coverage-v8": "^4.1.11",
+    "eslint": "^10.0.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.68.0",
+    "vitest": "^4.1.11"
   }
 }

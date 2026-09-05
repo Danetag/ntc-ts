@@ -5,6 +5,11 @@ Extracts the work of [ntc](https://chir.ag/projects/ntc/) - "Name That Color" - 
 - caches colors already found, instead of looping through the array of available colors.
 - extract color sets in different files for tree shaking, so developers can provide their own colors or use a set provided by the library.
 
+## Breaking changes in 0.1.0
+
+- `COLOR` is now a typed tuple: custom palettes must start with a hex string and color name, followed by optional cached RGB/HSL numbers.
+- `getColorName` now accepts only valid 3- or 6-digit hexadecimal colors (with or without `#`); malformed values return `not-a-color`.
+
 ## Live Demo of ntc
 
 Try [Name that Color](https://chir.ag/projects/name-that-color/)!

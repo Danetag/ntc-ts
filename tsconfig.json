@@ -1,16 +1,16 @@
 {
-    "compilerOptions": {
-      "declaration": true,
-      "lib": ["ESNext", "dom"],
-      "outDir": "dist",
-      "strict": true,
-      "sourceMap": true,
-      "sourceRoot": "/",
-      "module": "ESNext",
-      "target": "ESNext",
-      "skipLibCheck": true,
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist", "example", "__tests__"],
-    "esModuleInterop": true
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "lib": ["ES2020", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2020"
+  },
+  "include": ["src/**/*", "__tests__/**/*", "tsup.config.ts"],
+  "exclude": ["node_modules", "dist", "example"]
 }
