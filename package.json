@@ -45,7 +45,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "tsup && node scripts/postbuild.mjs",
+    "build": "node scripts/build.mjs && node scripts/postbuild.mjs",
     "coverage": "vitest run --coverage",
     "dev": "tsup --watch",
     "lint": "eslint .",

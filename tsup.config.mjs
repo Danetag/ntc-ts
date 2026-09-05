@@ -1,6 +1,6 @@
 import { defineConfig } from 'tsup'
 
-export default defineConfig([
+export const buildConfigurations = [
   {
     entry: {
       'ntc-ts': 'src/index.ts',
@@ -10,7 +10,7 @@ export default defineConfig([
     dts: true,
     sourcemap: true,
     splitting: false,
-    clean: true,
+    clean: false,
     outDir: 'dist'
   },
   {
@@ -18,7 +18,6 @@ export default defineConfig([
       'ntc-ts': 'src/index.ts'
     },
     format: ['cjs'],
-    dts: true,
     sourcemap: true,
     clean: false,
     outDir: 'dist',
@@ -35,4 +34,6 @@ export default defineConfig([
     outDir: 'dist',
     outExtension: () => ({ js: '.js' })
   }
-])
+]
+
+export default defineConfig(buildConfigurations)

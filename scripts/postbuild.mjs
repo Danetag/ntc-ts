@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -7,6 +7,10 @@ const distDirectory = path.join(rootDirectory, 'dist')
 const colorsDirectory = path.join(distDirectory, 'colors')
 
 await mkdir(colorsDirectory, { recursive: true })
+await copyFile(
+  path.join(distDirectory, 'ntc-ts.d.ts'),
+  path.join(distDirectory, 'ntc-ts.d.cts')
+)
 
 const moduleFile = path.join(distDirectory, 'ntc-ts.module.js')
 const modernFile = path.join(distDirectory, 'ntc-ts.modern.js')
