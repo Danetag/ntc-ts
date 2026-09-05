@@ -1,2 +1,1 @@
-import { COLOR } from '../types';
-export declare const MINIMAL_COLORS: COLOR[];
+export { MINIMAL_COLORS } from '../ntc-ts.js'

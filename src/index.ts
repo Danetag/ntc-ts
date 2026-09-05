@@ -1,21 +1,11 @@
-import {
-    cachedColors,
-    colors,
-    flushCachedColors,
-    getColorName,
-    initColors,
-    NOT_A_COLOR
-} from './ntc';
-import { MINIMAL_COLORS } from './colors/minimal';
-import { ORIGINAL_COLORS } from './colors/original';
-
 export {
-    cachedColors,
-    colors,
-    flushCachedColors,
-    getColorName,
-    initColors,
-    MINIMAL_COLORS,
-    NOT_A_COLOR,
-    ORIGINAL_COLORS
-};
+  cachedColors,
+  colors,
+  flushCachedColors,
+  getColorName,
+  initColors,
+  NOT_A_COLOR
+} from './ntc'
+export { MINIMAL_COLORS } from './colors/minimal'
+export { ORIGINAL_COLORS } from './colors/original'
+export type { CACHED_COLOR, COLOR, FORMATTED_COLOR } from './types'
