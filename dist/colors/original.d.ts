@@ -1,1 +1,2 @@
-export { ORIGINAL_COLORS } from '../ntc-ts.js'
+import { COLOR } from '../types.js';
+export declare const ORIGINAL_COLORS: COLOR[];

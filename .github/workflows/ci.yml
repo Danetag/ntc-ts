@@ -74,3 +74,6 @@ jobs:
 
       - name: Verify packed package
         run: npm run check:package
+
+      - name: Package smoke checks
+        run: npm run smoke
