@@ -17,6 +17,32 @@ const invalidColor = {
   rgb: null
 }
 
+const builtInPalettes = [
+  ['MINIMAL_COLORS', MINIMAL_COLORS],
+  ['ORIGINAL_COLORS', ORIGINAL_COLORS]
+] as const
+
+describe('built-in palettes', function () {
+  it.each(builtInPalettes)('%s contains unique, normalized six-digit hex values', function (_name, palette) {
+    const hexValues = palette.map(([hex]) => hex)
+
+    expect(hexValues.every(hex => /^[0-9A-F]{6}$/.test(hex))).toBe(true)
+    expect(new Set(hexValues).size).toBe(hexValues.length)
+  })
+
+  it.each(builtInPalettes)('%s returns every entry as an exact lookup', function (_name, palette) {
+    initColors(palette)
+
+    for (const [hex, name] of palette) {
+      expect(getColorName(hex)).toEqual({
+        exactMatch: true,
+        name,
+        rgb: `#${hex}`
+      })
+    }
+  })
+})
+
 describe('ntc', function () {
   beforeEach(function () {
     initColors(MINIMAL_COLORS)
