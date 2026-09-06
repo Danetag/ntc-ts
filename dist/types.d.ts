@@ -16,3 +16,12 @@ export interface FORMATTED_COLOR {
 export interface CACHED_COLOR {
     [key: string]: FORMATTED_COLOR;
 }
+export interface COLOR_MATCHER_OPTIONS {
+    cache?: boolean;
+    maxCacheSize?: number;
+}
+export interface COLOR_MATCHER {
+    getColorName: (color?: string) => FORMATTED_COLOR;
+    initColors: (colors: ReadonlyArray<Readonly<COLOR>>) => void;
+    flushCachedColors: () => void;
+}
