@@ -47,6 +47,7 @@
   "scripts": {
     "build": "node scripts/build.mjs && node scripts/postbuild.mjs",
     "check:package": "node scripts/verify-package.mjs",
+    "check:runtime": "node scripts/verify-runtime-package.mjs",
     "coverage": "vitest run --coverage",
     "dev": "tsup --watch",
     "lint": "eslint .",
