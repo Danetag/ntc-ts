@@ -64,18 +64,79 @@ describe('createColorMatcher', function () {
     expect(() => createColorMatcher(undefined, { maxCacheSize: 1.5 })).toThrow(RangeError)
   })
 
-  it('uses the first duplicate exact hex and preserves nearest-match ties', function () {
-    const exactMatcher = createColorMatcher([
+  it('uses the first duplicate exact hex', function () {
+    const matcher = createColorMatcher([
       ['ABCDEF', 'First Exact'],
       ['abcdef', 'Second Exact']
     ], { cache: false })
-    const tieMatcher = createColorMatcher([
-      ['000000', 'First Tie', 0, 0, 0, 0, 0, 0],
-      ['FFFFFF', 'Second Tie', 0, 0, 0, 0, 0, 0]
+
+    expect(matcher.getColorName('#ABCDEF').name).toBe('First Exact')
+  })
+
+  it('preserves palette order when nearest-match distances tie', function () {
+    const matcher = createColorMatcher([
+      ['000000', 'First Tie'],
+      ['000000', 'Second Tie']
     ])
 
-    expect(exactMatcher.getColorName('#ABCDEF').name).toBe('First Exact')
-    expect(tieMatcher.getColorName('#010101').name).toBe('First Tie')
+    expect(matcher.getColorName('#010101').name).toBe('First Tie')
+  })
+
+  it('returns not-a-color for invalid inputs', function () {
+    const matcher = createColorMatcher([['FF0000', 'Red']])
+    const notAColor = {
+      exactMatch: false,
+      name: 'not-a-color',
+      rgb: null
+    }
+
+    expect(matcher.getColorName()).toEqual(notAColor)
+    expect(matcher.getColorName('not a color')).toEqual(notAColor)
+    expect(matcher.getColorName('#12')).toEqual(notAColor)
+  })
+
+  it('returns not-a-color for an empty palette', function () {
+    const matcher = createColorMatcher([])
+
+    expect(matcher.getColorName('#123456')).toEqual({
+      exactMatch: false,
+      name: 'not-a-color',
+      rgb: null
+    })
+  })
+
+  it('drops malformed palette entries', function () {
+    const matcher = createColorMatcher([
+      ['invalid', 'Invalid'],
+      ['FF0000', 'Red']
+    ])
+
+    expect(matcher.getColorName('#FF0000').name).toBe('Red')
+    expect(createColorMatcher([['invalid', 'Invalid']]).getColorName('#FF0000').name).toBe('not-a-color')
+  })
+
+  it('normalizes shorthand hex inputs', function () {
+    const matcher = createColorMatcher([['FF0000', 'Red']])
+
+    expect(matcher.getColorName('#f00')).toEqual({
+      exactMatch: true,
+      name: 'Red',
+      rgb: '#FF0000'
+    })
+  })
+
+  it('flushes the matcher cache when colors are re-initialized', function () {
+    const matcher = createColorMatcher([['FF0000', 'First Red']])
+    const cachedResult = matcher.getColorName('#FF0000')
+
+    expect(matcher.getColorName('#FF0000')).toBe(cachedResult)
+    matcher.initColors([['FF0000', 'Second Red']])
+    expect(matcher.getColorName('#FF0000')).toEqual({
+      exactMatch: true,
+      name: 'Second Red',
+      rgb: '#FF0000'
+    })
+    expect(matcher.getColorName('#FF0000')).not.toBe(cachedResult)
   })
 
   it('copies palettes during creation and re-initialization', function () {
