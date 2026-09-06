@@ -89,6 +89,25 @@ Palette and cache state are shared by all consumers of a loaded module instance:
 
 Because `initColors` changes module-global state, initialize once during application startup. Avoid switching palettes between concurrent requests; isolate module instances or serialize access if different consumers require different palettes.
 
+### Independent matchers
+
+Use `createColorMatcher` when each consumer needs its own palette and cache:
+
+```ts
+import { createColorMatcher, ORIGINAL_COLORS } from 'ntc-ts'
+
+const matcher = createColorMatcher(ORIGINAL_COLORS, {
+  cache: true,
+  maxCacheSize: 500
+})
+
+matcher.getColorName('#9399A7')
+matcher.initColors([['000000', 'Black']])
+matcher.flushCachedColors()
+```
+
+`cache` defaults to `true`. `maxCacheSize` is an optional non-negative integer; `0` retains no results. When a positive limit is full, the oldest inserted lookup is evicted (cache hits do not change the order). Invalid limits throw a `RangeError`. The matcher copies palettes passed at creation and to `initColors`, so later caller mutations do not affect it.
+
 ## Migrating to 0.1.0
 
 Version 0.1.0 tightened invalid-input behavior without changing the exported function names:

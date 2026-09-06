@@ -70,8 +70,8 @@ function formatColor(rgb, colorName, exactMatch = false) {
         rgb
     };
 }
-function initColors(_colors) {
-    colors = _colors.flatMap((color) => {
+function clonePalette(_colors) {
+    return _colors.flatMap((color) => {
         const normalizedHex = normalizeHexColor(color[0]);
         // Preserve the permissive API while ensuring malformed entries cannot
         // introduce NaN values into color-distance calculations.
@@ -81,6 +81,9 @@ function initColors(_colors) {
         normalizedColor[0] = normalizedHex;
         return [normalizedColor];
     });
+}
+function initColors(_colors) {
+    colors = clonePalette(_colors);
     flushCachedColors();
 }
 function flushCachedColors() {
@@ -143,6 +146,85 @@ function getColorName(color) {
     // add to cached color
     cachedColors[color] = formatColor(currentHexColor, currentNameColor, false);
     return cachedColors[color];
+}
+function compilePalette(_colors) {
+    const compiledColors = clonePalette(_colors);
+    const exactIndexes = new Map();
+    compiledColors.forEach((color, index) => {
+        const hex = color[0];
+        if (!exactIndexes.has(hex))
+            exactIndexes.set(hex, index);
+    });
+    return { colors: compiledColors, exactIndexes };
+}
+function createColorMatcher(palette = [['000000', 'Black']], options = {}) {
+    const cacheEnabled = options.cache ?? true;
+    const maxCacheSize = options.maxCacheSize;
+    if (maxCacheSize !== undefined && (!Number.isInteger(maxCacheSize) || maxCacheSize < 0)) {
+        throw new RangeError('maxCacheSize must be a non-negative integer');
+    }
+    let compiledPalette = compilePalette(palette);
+    let lookupCache = new Map();
+    function flushMatcherCache() {
+        lookupCache = new Map();
+    }
+    function cacheResult(hex, result) {
+        if (!cacheEnabled || maxCacheSize === 0)
+            return result;
+        if (maxCacheSize !== undefined && lookupCache.size >= maxCacheSize) {
+            const oldestKey = lookupCache.keys().next().value;
+            lookupCache.delete(oldestKey);
+        }
+        lookupCache.set(hex, result);
+        return result;
+    }
+    function initMatcherColors(_colors) {
+        compiledPalette = compilePalette(_colors);
+        flushMatcherCache();
+    }
+    function getMatcherColorName(input) {
+        if (typeof input !== 'string')
+            return formatColor(null, NOT_A_COLOR, false);
+        const normalizedColor = normalizeHexColor(input);
+        if (normalizedColor === null)
+            return formatColor(null, NOT_A_COLOR, false);
+        const hex = `#${normalizedColor}`;
+        const cachedColor = lookupCache.get(hex);
+        if (cachedColor !== undefined)
+            return cachedColor;
+        const exactIndex = compiledPalette.exactIndexes.get(normalizedColor);
+        if (exactIndex !== undefined) {
+            const exactColor = compiledPalette.colors[exactIndex];
+            return cacheResult(hex, formatColor(`#${exactColor[0]}`, String(exactColor[1]), true));
+        }
+        const [red, green, blue] = getRGB(hex);
+        const [hue, saturation, lightness] = getHSL(hex);
+        let closestIndex = -1;
+        let closestDifference = -1;
+        for (let index = 0; index < compiledPalette.colors.length; index++) {
+            const currentColor = compiledPalette.colors[index];
+            const populatedColor = populateColor(currentColor);
+            if (populatedColor !== currentColor)
+                compiledPalette.colors[index] = populatedColor;
+            const [, , currentRed, currentGreen, currentBlue, currentHue, currentSaturation, currentLightness] = populatedColor;
+            const rgbDifference = Math.pow(red - currentRed, 2) + Math.pow(green - currentGreen, 2) + Math.pow(blue - currentBlue, 2);
+            const hslDifference = Math.pow(hue - currentHue, 2) + Math.pow(saturation - currentSaturation, 2) + Math.pow(lightness - currentLightness, 2);
+            const difference = rgbDifference + hslDifference * 2;
+            if (closestDifference < 0 || closestDifference > difference) {
+                closestDifference = difference;
+                closestIndex = index;
+            }
+        }
+        if (closestIndex < 0)
+            return formatColor(null, NOT_A_COLOR, false);
+        const closestColor = compiledPalette.colors[closestIndex];
+        return cacheResult(hex, formatColor(`#${closestColor[0]}`, String(closestColor[1]), false));
+    }
+    return {
+        getColorName: getMatcherColorName,
+        initColors: initMatcherColors,
+        flushCachedColors: flushMatcherCache
+    };
 }
 
 const MINIMAL_COLORS = [
@@ -1751,5 +1833,5 @@ const ORIGINAL_COLORS = [
     ['FFFFFF', 'White']
 ];
 
-export { MINIMAL_COLORS, NOT_A_COLOR, ORIGINAL_COLORS, cachedColors, colors, flushCachedColors, getColorName, initColors };
+export { MINIMAL_COLORS, NOT_A_COLOR, ORIGINAL_COLORS, cachedColors, colors, createColorMatcher, flushCachedColors, getColorName, initColors };
 //# sourceMappingURL=ntc-ts.module.js.map
