@@ -8,7 +8,7 @@
     "color",
     "name that color"
   ],
-  "license": "CC-BY-4.0 License",
+  "license": "CC-BY-4.0",
   "homepage": "https://github.com/Danetag/ntc-ts#readme",
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs && node scripts/postbuild.mjs",
+    "check:package": "node scripts/verify-package.mjs",
     "coverage": "vitest run --coverage",
     "dev": "tsup --watch",
     "lint": "eslint .",

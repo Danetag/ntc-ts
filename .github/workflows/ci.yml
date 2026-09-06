@@ -44,3 +44,6 @@ jobs:
 
       - name: Verify dist
         run: git diff --exit-code -- dist
+
+      - name: Verify packed package
+        run: npm run check:package
