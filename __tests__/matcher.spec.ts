@@ -52,6 +52,18 @@ describe('createColorMatcher', function () {
     expect(matcher.getColorName('#010101')).not.toBe(first)
   })
 
+  it('uses FIFO insertion order without refreshing cache hits', function () {
+    const matcher = createColorMatcher([['000000', 'Black']], { maxCacheSize: 2 })
+    const first = matcher.getColorName('#010101')
+    const second = matcher.getColorName('#020202')
+
+    expect(matcher.getColorName('#010101')).toBe(first)
+    matcher.getColorName('#030303')
+
+    expect(matcher.getColorName('#020202')).toBe(second)
+    expect(matcher.getColorName('#010101')).not.toBe(first)
+  })
+
   it('treats maxCacheSize zero as no retained lookups', function () {
     const matcher = createColorMatcher([['000000', 'Black']], { maxCacheSize: 0 })
     const first = matcher.getColorName('#010101')
