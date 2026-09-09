@@ -1,6 +1,6 @@
 {
   "name": "ntc-ts",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "\"Name That Color\" as a typescript library!",
   "author": "Arnaud Tanielian <arno.tanielian@gmail.com> (https://cargocollective.com/danetag)",
   "keywords": [
